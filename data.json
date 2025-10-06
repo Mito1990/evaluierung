@@ -1,0 +1,55 @@
+{
+  "vehicles": [
+    {
+    "vehicleType":  "Alfa Romeo (4C Spider)",
+    "created":  "16.06.2016",
+    "mileage":  "10.500",
+    "gearbox":  "hatchback",
+    "owner":  1,
+    "kwAndPs":  "177/89",
+    "hek":  39235.99,
+    "taxation":  "Regel"
+    },
+    {
+    "vehicleType":  "Volkswagen Passat Variant 2.0 TDI BMT Trendline",
+    "created":  "04.04.2014",
+    "mileage":  "70.000",
+    "gearbox":  "hatchback",
+    "owner":  2,
+    "kwAndPs":  "110/90",
+    "hek":  11529.84,
+    "taxation":  "Differenz"
+    },
+    {
+    "vehicleType":  "Ford Focus Titanium 1.0 EcoBoast Start/Stopp",
+    "created":  "01.02.2013",
+    "mileage":  "10.500",
+    "gearbox":  "hatchback",
+    "owner":  1,
+    "kwAndPs":  "177/89",
+    "hek":  79235.99,
+    "taxation":  "Regel"
+    },
+    {
+    "vehicleType":  "Audi (A3 Sportback 2.0 TDI S-Line",
+    "created":  "16.06.2016",
+    "mileage":  "10.500",
+    "gearbox":  "hatchback",
+    "owner":  1,
+    "kwAndPs":  "177/89",
+    "hek":  59235.99,
+    "taxation":  "Regel"
+    },
+    {
+    "vehicleType":  "BMW (5er -520 d DPF Touring)",
+    "created":  "16.06.2016",
+    "mileage":  "10.500",
+    "gearbox":  "hatchback",
+    "owner":  1,
+    "kwAndPs":  "177/89",
+    "hek":  19235.99,
+    "taxation":  "Regel"
+    }
+
+  ]
+}
