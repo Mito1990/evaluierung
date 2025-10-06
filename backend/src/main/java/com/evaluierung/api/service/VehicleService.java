@@ -41,4 +41,11 @@ public class VehicleService {
                 .orElseThrow(() -> new VehicleNotFoundException(id));
         return VehicleDto.toDto(vehicle);
     }
+
+    public void deleteVehicle(Long id) {
+        Vehicle vehicle = vehicleRepository.findById(id)
+                .orElseThrow(() -> new VehicleNotFoundException(id));
+        vehicleRepository.delete(vehicle);
+    }
+
 }

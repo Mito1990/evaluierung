@@ -1,5 +1,8 @@
 package com.evaluierung.api.dto;
 
+import org.springframework.hateoas.RepresentationModel;
+import org.springframework.hateoas.server.core.Relation;
+
 import com.evaluierung.api.entity.Vehicle;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -10,7 +13,8 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class VehicleDto {
+@Relation(collectionRelation = "vehicles")
+public class VehicleDto extends RepresentationModel<VehicleDto> {
 
     private Long id;
     private String vehicleType;
