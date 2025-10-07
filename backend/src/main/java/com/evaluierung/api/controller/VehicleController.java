@@ -9,7 +9,6 @@ import com.evaluierung.api.service.VehicleService;
 
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
-import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -50,26 +49,4 @@ public class VehicleController {
         vehicleService.deleteVehicle(id);
         return ResponseEntity.noContent().build();
     }
-
-    // // DELETE vehicle by ID
-    // @DeleteMapping("/{id}")
-    // public ResponseEntity<Void> deleteVehicle(@PathVariable Long id) {
-    // if (vehicleService.deleteVehicleById(id)) {
-    // return ResponseEntity.noContent().build(); // 204
-    // } else {
-    // return ResponseEntity.notFound().build(); // 404
-    // }
-    // }
-
 }
-// @GetMapping
-// public ResponseEntity<List<VehicleDto>> vehicles() {
-// List<VehicleDto> vehicles = vehicleService.getVehicles();
-// return ResponseEntity.ok(vehicles);
-// }
-
-// @GetMapping("/{id}")
-// public ResponseEntity<VehicleDto> vehicle(@PathVariable Long id) {
-// VehicleDto vehicle = vehicleService.getVehicleById(id);
-// return ResponseEntity.ok(vehicle);
-// }

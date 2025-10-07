@@ -6,12 +6,14 @@ import com.evaluierung.api.exception.VehicleNotFoundException;
 import com.evaluierung.api.repository.VehicleRepository;
 import com.evaluierung.api.wrapper.VehiclesWrapper;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 public class VehicleService {
 
@@ -46,6 +48,7 @@ public class VehicleService {
         Vehicle vehicle = vehicleRepository.findById(id)
                 .orElseThrow(() -> new VehicleNotFoundException(id));
         vehicleRepository.delete(vehicle);
+        log.info("Vehicle with ID {} successfully deleted.", id);
     }
 
 }
