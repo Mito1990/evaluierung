@@ -1,10 +1,19 @@
-import React, { useEffect, useState } from "react";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+} from "react-router-dom";
+import VehiclesPage from "./pages/VehiclesPage";
+import HomePage from "./pages/HomePage";
 
-const App: React.FC = () => {
+const App = () => {
   return (
-    <div style={{ padding: "2rem" }}>
-      <h1>React + TypeScript + PrimeReact + Axios läuft!</h1>
-    </div>
+    <Router basename="/evaluation">
+      <Routes>
+        <Route path="" element={<HomePage />} />
+        <Route path="/vehicles" element={<VehiclesPage />} />
+      </Routes>
+    </Router>
   );
 };
 export default App;
