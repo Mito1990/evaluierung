@@ -6,11 +6,11 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Profile("dev")
-public class DummyDataLoader implements CommandLineRunner {
+public class DataLoaderRunner implements CommandLineRunner {
 
     private final VehicleService vehicleService;
 
-    public DummyDataLoader(VehicleService vehicleService) {
+    public DataLoaderRunner(VehicleService vehicleService) {
         this.vehicleService = vehicleService;
     }
 
