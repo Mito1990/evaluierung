@@ -1,0 +1,55 @@
+openapi: 3.0.3
+info:
+  title: Vehicle API
+  version: 1.0.0
+
+paths:
+  /vehicles:
+    get:
+      summary: Alle Fahrzeuge abrufen
+      responses:
+        "200":
+          description: Erfolgreiche Antwort
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/VehicleDto"
+
+components:
+  schemas:
+    VehicleDto:
+      type: object
+      properties:
+        id:
+          type: integer
+        vehicleType:
+          type: string
+        created:
+          type: string
+        mileage:
+          type: string
+        gearbox:
+          type: string
+        owner:
+          type: integer
+        kwAndPs:
+          type: string
+        hek:
+          type: number
+          format: double
+        taxation:
+          type: string
+        _links:
+          type: object
+      required:
+        - id
+        - vehicleType
+        - created
+        - mileage
+        - gearbox
+        - owner
+        - kwAndPs
+        - hek
+        - taxation
