@@ -9,11 +9,21 @@ module.exports = {
     path: path.resolve(__dirname, "dist"),
     publicPath: "/evaluation/"
   },
-  devServer: {
-    static: path.join(__dirname, "public"),
+    devServer: {
+    static: {
+        directory: path.join(__dirname, "public"),
+    },
     port: 8023,
-    historyApiFallback: true
-  },
+    historyApiFallback: true,
+    proxy: [
+        {
+        context: ['/api'],
+        target: 'http://localhost:8080',
+        changeOrigin: true,
+        secure: false,
+        },
+    ],
+    },
   resolve: {
     extensions: [".tsx", ".ts", ".js"]
   },
