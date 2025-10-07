@@ -1,7 +1,7 @@
 import useSWR from "swr";
 import { VehicleDto } from "../api";
 import { api } from "../apiClient";
-import VehicleTable from "../components/VehicelTable";
+import VehicleTable from "../components/VehicleTable";
 
 const fetcher = async () => {
   try {
@@ -14,7 +14,7 @@ const fetcher = async () => {
   }
 };
 
-export const VehiclesPage = () => {
+export const VehiclePage = () => {
   const {
     data: vehicles,
     error,
@@ -35,4 +35,4 @@ export const VehiclesPage = () => {
     </div>
   );
 };
-export default VehiclesPage;
+export default VehiclePage;

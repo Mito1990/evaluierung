@@ -1,9 +1,5 @@
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-} from "react-router-dom";
-import VehiclesPage from "./pages/VehiclesPage";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import VehiclePage from "./pages/VehiclePage";
 import HomePage from "./pages/HomePage";
 
 const App = () => {
@@ -11,7 +7,7 @@ const App = () => {
     <Router basename="/evaluation">
       <Routes>
         <Route path="" element={<HomePage />} />
-        <Route path="/vehicles" element={<VehiclesPage />} />
+        <Route path="/vehicles" element={<VehiclePage />} />
       </Routes>
     </Router>
   );
