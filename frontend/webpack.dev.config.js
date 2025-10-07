@@ -7,14 +7,19 @@ module.exports = {
   output: {
     filename: "bundledev.js",
     path: path.resolve(__dirname, "dist"),
-    publicPath: "/evaluation/"
+    publicPath: "/evaluation"
   },
     devServer: {
     static: {
         directory: path.join(__dirname, "public"),
     },
+    devMiddleware: {
+      writeToDisk: true
+    },
     port: 8023,
-    historyApiFallback: true,
+    historyApiFallback: {
+      index: '/evaluation/index.html',
+    },
     proxy: [
         {
         context: ['/api'],
