@@ -3,22 +3,74 @@ info:
   title: Vehicle API
   version: 1.0.0
 
+servers:
+  - url: http://localhost:8080
+    description: Local backend server
+
 paths:
   /vehicles:
     get:
-      summary: Alle Fahrzeuge abrufen
+      summary: Get all vehicles
+      operationId: getVehicles
+      tags:
+        - Vehicles
       responses:
         "200":
-          description: Erfolgreiche Antwort
+          description: Successful response with HAL-style _embedded
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/VehicleDto"
+                type: object
+                properties:
+                  _embedded:
+                    type: object
+                    properties:
+                      vehicles:
+                        type: array
+                        items:
+                          $ref: "#/components/schemas/VehicleDto"
+                required:
+                  - _embedded
+
+  /vehicles/{id}:
+    delete:
+      summary: Delete a vehicle by ID
+      operationId: deleteVehicle
+      tags:
+        - Vehicles
+      parameters:
+        - name: id
+          in: path
+          description: ID of the vehicle to delete
+          required: true
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: Vehicle deleted successfully (No Content)
+        "404":
+          description: Vehicle not found
 
 components:
   schemas:
+    Link:
+      type: object
+      properties:
+        href:
+          type: string
+      required:
+        - href
+
+    Links:
+      type: object
+      properties:
+        self:
+          $ref: "#/components/schemas/Link"
+        allVehicles:
+          $ref: "#/components/schemas/Link"
+        delete:
+          $ref: "#/components/schemas/Link"
+
     VehicleDto:
       type: object
       properties:
@@ -42,7 +94,7 @@ components:
         taxation:
           type: string
         _links:
-          type: object
+          $ref: "#/components/schemas/Links"
       required:
         - id
         - vehicleType
