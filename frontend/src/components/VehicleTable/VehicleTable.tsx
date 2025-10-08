@@ -1,10 +1,10 @@
-import React from "react";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { Button } from "primereact/button";
 import { VehicleDto } from "../../api";
 
 import "./VehicleTable.scss";
+import { Card } from "primereact/card";
 
 interface VehicleTableProps {
   vehicles: VehicleDto[];
@@ -16,10 +16,7 @@ interface ColumnMeta {
   header: string;
 }
 
-export const VehicleTable: React.FC<VehicleTableProps> = ({
-  vehicles,
-  onDelete,
-}) => {
+export const VehicleTable = ({ vehicles, onDelete }: VehicleTableProps) => {
   const columns: ColumnMeta[] = [
     { field: "vehicleType", header: "Vehicle Type" },
     { field: "created", header: "Created" },
@@ -31,7 +28,7 @@ export const VehicleTable: React.FC<VehicleTableProps> = ({
 
   const actionBodyTemplate = (vehicle: VehicleDto) => (
     <Button
-      label="Löschen"
+      label="Delete"
       className="p-button-danger"
       onClick={() => onDelete(vehicle.id)}
     />
@@ -39,17 +36,20 @@ export const VehicleTable: React.FC<VehicleTableProps> = ({
 
   return (
     <div className="card">
-      <DataTable
-        value={vehicles ?? []}
-        className="vehicle-table-header"
-        tableStyle={{ minWidth: "50rem" }}
-        emptyMessage="Keine Fahrzeuge vorhanden"
-      >
-        {columns.map((col) => (
-          <Column key={col.field} field={col.field} header={col.header} />
-        ))}
-        <Column header="Aktionen" body={actionBodyTemplate} />
-      </DataTable>
+      <Card className="vehicle-card" title="Vehicles">
+        <DataTable
+          value={vehicles ?? []}
+          className="vehicle-table-header"
+          tableStyle={{ minWidth: "50rem" }}
+          scrollable
+          scrollHeight="55vh"
+        >
+          {columns.map((col) => (
+            <Column key={col.field} field={col.field} header={col.header} />
+          ))}
+          <Column header="Actions" body={actionBodyTemplate} />
+        </DataTable>
+      </Card>
     </div>
   );
 };

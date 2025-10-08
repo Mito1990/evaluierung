@@ -3,33 +3,36 @@ import { Toast } from "primereact/toast";
 import { useRef } from "react";
 import VehicleTable from "../components/VehicleTable/VehicleTable";
 import useSWR from "swr";
-import { VehicleDto } from "../api";
-import { fetchVehicles, deleteVehicle } from "../apiClient/apiClient";
+import { getVehicles, removeVehicle } from "../service/VehicleService";
+import { VehicleDto } from "../api/models/VehicleDto";
+import { ConfirmDialog, confirmDialog } from "primereact/confirmdialog";
 
-const fetcher = async (): Promise<VehicleDto[]> => {
-  const res = await fetchVehicles();
-  return res || [];
-};
+const fetcher = () => getVehicles();
 
 const Loading = () => <Message severity="info" text="Loading vehicles..." />;
 
 export const VehiclePage = () => {
   const toast = useRef<Toast>(null);
-
   const {
     data: vehicles,
     isLoading,
     mutate,
   } = useSWR<VehicleDto[]>("vehicles", fetcher);
 
+  const confirmDelete = (id: number) => {
+    confirmDialog({
+      message: "Are you sure you want to delete this vehicle?",
+      header: "Confirmation",
+      icon: "pi pi-exclamation-triangle",
+      accept: () => handleDelete(id),
+    });
+  };
+
   const handleDelete = async (id: number) => {
     try {
-      mutate(
-        (currentVehicles) => currentVehicles?.filter((v) => v.id !== id) ?? [],
-        false
-      );
+      mutate((current) => current?.filter((v) => v.id !== id) ?? [], false);
 
-      await deleteVehicle(id);
+      await removeVehicle(id);
 
       mutate();
 
@@ -37,21 +40,27 @@ export const VehiclePage = () => {
         severity: "success",
         summary: "Deleted",
         detail: `Vehicle ${id} deleted`,
+        life: 5000,
       });
     } catch (error) {
       toast.current?.show({
         severity: "error",
         summary: "Error",
         detail: `Could not delete vehicle: ${error}`,
+        life: 5000,
       });
     }
   };
 
   if (isLoading) return <Loading />;
+
   return (
-    <div style={{ padding: "2rem", maxWidth: "70%" }}>
+    <div style={{ padding: "2rem" }}>
       <Toast ref={toast} />
-      <VehicleTable vehicles={vehicles ?? []} onDelete={handleDelete} />
+      <ConfirmDialog />
+      <VehicleTable vehicles={vehicles ?? []} onDelete={confirmDelete} />
     </div>
   );
 };
+
+export default VehiclePage;
