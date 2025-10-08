@@ -19,27 +19,27 @@ export const VehiclePage = () => {
     mutate,
   } = useSWR<VehicleDto[]>("vehicles", fetcher);
 
-  const confirmDelete = (id: number) => {
+  const confirmDelete = (vehicle: VehicleDto) => {
     confirmDialog({
       message: "Are you sure you want to delete this vehicle?",
       header: "Confirmation",
       icon: "pi pi-exclamation-triangle",
-      accept: () => handleDelete(id),
+      accept: () => handleDelete(vehicle),
     });
   };
 
-  const handleDelete = async (id: number) => {
+  const handleDelete = async (vehicle: VehicleDto) => {
     try {
-      mutate((current) => current?.filter((v) => v.id !== id) ?? [], false);
+      mutate((current) => current?.filter((v) => v.id !== vehicle.id) ?? [], false);
 
-      await removeVehicle(id);
+      await removeVehicle(vehicle.id);
 
       mutate();
 
       toast.current?.show({
         severity: "success",
         summary: "Deleted",
-        detail: `Vehicle ${id} deleted`,
+        detail: `Vehicle ${vehicle.vehicleType} deleted`,
         life: 5000,
       });
     } catch (error) {

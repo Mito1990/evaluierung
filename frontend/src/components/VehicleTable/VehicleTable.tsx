@@ -8,7 +8,7 @@ import { Card } from "primereact/card";
 
 interface VehicleTableProps {
   vehicles: VehicleDto[];
-  onDelete: (id: number) => void;
+  onDelete: (vehicle: VehicleDto) => void;
 }
 
 interface ColumnMeta {
@@ -30,7 +30,7 @@ export const VehicleTable = ({ vehicles, onDelete }: VehicleTableProps) => {
     <Button
       label="Delete"
       className="p-button-danger"
-      onClick={() => onDelete(vehicle.id)}
+      onClick={() => onDelete(vehicle)}
     />
   );
 
