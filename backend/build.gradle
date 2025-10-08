@@ -2,6 +2,7 @@ plugins {
     id 'java'
     id 'org.springframework.boot' version '2.7.13'
     id 'io.spring.dependency-management' version '1.1.0'
+    id 'org.openapi.generator' version '7.5.0'
 }
 
 group = 'com.evaluierung'
@@ -28,6 +29,8 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-hateoas'
+    implementation 'org.springdoc:springdoc-openapi-ui:1.8.0'
+    implementation 'org.openapitools:jackson-databind-nullable:0.2.6'
 
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
@@ -43,3 +46,34 @@ dependencies {
 tasks.withType(Test) {
     useJUnitPlatform()
 }
+openApiGenerate {
+    generatorName = "spring"
+    inputSpec = "$rootDir/src/main/resources/openapi.yaml"
+    outputDir = "$buildDir/generated/openapi"
+    apiPackage = "com.evaluierung.api"
+    modelPackage = "com.evaluierung.model"
+    invokerPackage = "com.evaluierung"
+    configOptions = [
+        useSpringBoot3: "false",
+        dateLibrary   : "java8",
+        interfaceOnly : "true",
+        useOptional   : "true",
+    ]
+}
+task generateTypeScriptClient(type: org.openapitools.generator.gradle.plugin.tasks.GenerateTask) {
+    generatorName = "typescript-fetch"
+    inputSpec = "$rootDir/src/main/resources/openapi.yaml"
+    outputDir = "$rootDir/../frontend/src/api"
+    configOptions = [
+        supportsES6: "true",
+        modelPropertyNaming: "camelCase"
+    ]
+}
+compileJava.dependsOn tasks.openApiGenerate
+sourceSets.main.java.srcDir "$buildDir/generated/openapi/src/main/java"
+
+tasks.named("build") {
+    dependsOn(tasks.named("openApiGenerate"))
+    dependsOn(generateTypeScriptClient)
+}
+
