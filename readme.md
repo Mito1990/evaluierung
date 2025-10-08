@@ -9,14 +9,12 @@ Es dient als Beispiel für eine leichtgewichtige, komponentenbasierte Architektu
 
 1. [Überblick](#überblick)
 2. [Technologien](#technologien)
-3. [Architektur](#architektur)
-4. [Backend – Spring Boot](#backend--spring-boot)
-5. [Frontend – React mit TypeScript](#frontend--react-mit-typescript)
-6. [OpenAPI Codegenerierung](#openapi-codegenerierung)
-7. [Projektstruktur](#projektstruktur)
-8. [API Beispiel](#api-beispiel)
-9. [Start des Projekts](#start-des-projekts)
-10. [Autor & Lizenz](#autor--lizenz)
+3. [Backend – Spring Boot](#backend--spring-boot)
+4. [Frontend – React mit TypeScript](#frontend--react-mit-typescript)
+5. [OpenAPI Codegenerierung](#openapi-codegenerierung)
+6. [Projektstruktur](#projektstruktur)
+7. [API Beispiel](#api-beispiel)
+8. [Start des Projekts](#start-des-projekts)
 
 ---
 
@@ -48,27 +46,6 @@ Nach dem Löschen aktualisiert sich die Benutzeroberfläche automatisch.
 - **SWR** (Data Fetching & Mutations)
 - **Axios / Fetch API**
 - **OpenAPI Generator (TypeScript Axios)**
-
----
-
-## 🏗 Architektur
-
-┌─────────────────────┐
-│ React (TS)          │
-│ Anzeige & Löschung  │
-│ ─────────────────── │
-│ Webpack Dev Server  │
-│ mit Proxy (CORS)    │
-└───────────┬─────────┘
-REST API (JSON + HATEOAS)
-┌───────────▼─────────┐
-│ Spring Boot API     │
-│ (Vehicle Service)   │
-└───────────┬─────────┘
-            |
-┌───────────▼─────────┐
-│ H2 In-Memory DB     │
-└─────────────────────┘
 
 ## ⚙️ Backend – Spring Boot
 
@@ -147,29 +124,4 @@ Beispiel webpack.dev.config.js (Ausschnitt)
 Dadurch können API-Requests wie fetch('/api/v1/vehicles') direkt funktionieren,
 ohne dass CORS im Backend aktiviert werden muss.
 
-🔍 API Beispiel
 
-Response (GET /vehicles/1):
-
-{
-    "id": 1,
-    "vehicleType": "Alfa Romeo (4C Spider)",
-    "created": "16.06.2016",
-    "mileage": "10.500",
-    "gearbox": "hatchback",
-    "owner": 1,
-    "kwAndPs": "177/89",
-    "hek": 39235.99,
-    "taxation": "Regel",
-    "_links": {
-        "self": {
-        "href": "http://localhost:8080/api/v1/vehicles/1"
-        },
-        "all-vehicles": {
-        "href": "http://localhost:8080/api/v1/vehicles"
-        },
-        "delete": {
-        "href": "http://localhost:8080/api/v1/vehicles/1"
-        }
-    }
-},
