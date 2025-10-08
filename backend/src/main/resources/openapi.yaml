@@ -1,6 +1,6 @@
 openapi: 3.0.3
 info:
-  title: Vehicle API
+  title: Evaluation API
   version: 1.0.0
 
 servers:
@@ -29,10 +29,36 @@ paths:
                         type: array
                         items:
                           $ref: "#/components/schemas/VehicleDto"
+                  _links:
+                    $ref: "#/components/schemas/Links"
                 required:
                   - _embedded
+                  - _links
 
   /vehicles/{id}:
+    get:
+      summary: Get vehicle by ID
+      operationId: getVehicleById
+      tags:
+        - Vehicles
+      parameters:
+        - name: id
+          in: path
+          description: ID of the vehicle to retrieve
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "200":
+          description: Vehicle found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/VehicleDto"
+        "404":
+          description: Vehicle not found
+
     delete:
       summary: Delete a vehicle by ID
       operationId: deleteVehicle
@@ -45,6 +71,7 @@ paths:
           required: true
           schema:
             type: integer
+            format: int64
       responses:
         "204":
           description: Vehicle deleted successfully (No Content)
@@ -68,6 +95,8 @@ components:
           $ref: "#/components/schemas/Link"
         allVehicles:
           $ref: "#/components/schemas/Link"
+        getVehicleById:
+          $ref: "#/components/schemas/Link"
         delete:
           $ref: "#/components/schemas/Link"
 
@@ -76,6 +105,7 @@ components:
       properties:
         id:
           type: integer
+          format: int64
         vehicleType:
           type: string
         created:
@@ -86,6 +116,7 @@ components:
           type: string
         owner:
           type: integer
+          format: int64
         kwAndPs:
           type: string
         hek:

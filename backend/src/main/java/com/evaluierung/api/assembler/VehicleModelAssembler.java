@@ -8,7 +8,7 @@ import org.springframework.hateoas.server.RepresentationModelAssembler;
 import org.springframework.stereotype.Component;
 
 import com.evaluierung.api.controller.VehicleController;
-import com.evaluierung.api.dto.VehicleDto;
+import com.evaluierung.model.VehicleDto;
 
 @Component
 public class VehicleModelAssembler implements RepresentationModelAssembler<VehicleDto, EntityModel<VehicleDto>> {
@@ -19,4 +19,6 @@ public class VehicleModelAssembler implements RepresentationModelAssembler<Vehic
                 linkTo(methodOn(VehicleController.class).getAllVehicles()).withRel("all-vehicles"),
                 linkTo(methodOn(VehicleController.class).deleteVehicle(vehicle.getId())).withRel("delete"));
     }
+
+
 }

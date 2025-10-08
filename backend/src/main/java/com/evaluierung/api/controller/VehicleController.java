@@ -4,8 +4,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.evaluierung.api.assembler.VehicleModelAssembler;
-import com.evaluierung.api.dto.VehicleDto;
+
 import com.evaluierung.api.service.VehicleService;
+import com.evaluierung.model.VehicleDto;
 
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
@@ -30,6 +31,7 @@ public class VehicleController {
 
     @GetMapping
     public ResponseEntity<CollectionModel<EntityModel<VehicleDto>>> getAllVehicles() {
+
         List<EntityModel<VehicleDto>> vehicles = vehicleService.getVehicles()
                 .stream()
                 .map(vehicleModelAssembler::toModel)

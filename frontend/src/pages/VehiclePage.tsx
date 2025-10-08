@@ -6,7 +6,8 @@ import VehicleTable from "../components/VehicleTable";
 const fetcher = async () => {
   try {
     const res = await api.getVehicles();
-    const fetchedVehicles = (res.data as any)._embedded?.vehicles || [];
+    console.log(res.data)
+    const fetchedVehicles = (res.data as any)._embedded?.vehicleDtoList || [];
     return fetchedVehicles;
   } catch (err: any) {
     console.error("Fehler beim Laden der Fahrzeuge:", err);
@@ -21,7 +22,7 @@ export const VehiclePage = () => {
     isLoading,
     mutate,
   } = useSWR<VehicleDto[]>("vehicles", fetcher);
-
+    console.log(vehicles);
   if (isLoading) return <p>Lädt...</p>;
   if (error)
     return <p style={{ color: "red" }}>Fehler beim Laden der Fahrzeuge</p>;
