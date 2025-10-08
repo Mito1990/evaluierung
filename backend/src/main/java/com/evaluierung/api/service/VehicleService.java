@@ -2,6 +2,7 @@ package com.evaluierung.api.service;
 
 import com.evaluierung.api.entity.Vehicle;
 import com.evaluierung.api.exception.VehicleNotFoundException;
+import com.evaluierung.api.mapper.VehicleToDtoMapper;
 import com.evaluierung.api.repository.VehicleRepository;
 import com.evaluierung.api.wrapper.VehiclesWrapper;
 import com.evaluierung.model.VehicleDto;
@@ -34,35 +35,14 @@ public class VehicleService {
     public List<VehicleDto> getVehicles() {
         return vehicleRepository.findAll()
                 .stream()
-                .map(vehicle -> {
-                    VehicleDto dto = new VehicleDto();
-                    dto.setId(vehicle.getId().longValue());
-                    dto.setVehicleType(vehicle.getVehicleType());
-                    dto.setCreated(vehicle.getCreated());
-                    dto.setMileage(vehicle.getMileage());
-                    dto.setGearbox(vehicle.getGearbox());
-                    dto.setOwner(vehicle.getOwner().longValue());
-                    dto.setKwAndPs(vehicle.getKwAndPs());
-                    dto.setHek(vehicle.getHek());
-                    dto.setTaxation(vehicle.getTaxation());
-                    return dto;
-                })
+                .map(VehicleToDtoMapper::toDto)
                 .collect(Collectors.toList());
     }
 
     public VehicleDto getVehicleById(Long id) {
         Vehicle vehicle = vehicleRepository.findById(id)
                 .orElseThrow(() -> new VehicleNotFoundException(id));
-        return new VehicleDto(
-                vehicle.getId(),
-                vehicle.getVehicleType(),
-                vehicle.getCreated(),
-                vehicle.getMileage(),
-                vehicle.getGearbox(),
-                vehicle.getOwner(),
-                vehicle.getKwAndPs(),
-                vehicle.getHek(),
-                vehicle.getTaxation());
+        return VehicleToDtoMapper.toDto(vehicle);
     }
 
     public void deleteVehicle(Long id) {
