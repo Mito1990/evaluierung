@@ -25,7 +25,7 @@ paths:
                   _embedded:
                     type: object
                     properties:
-                      vehicles:
+                      vehicleDtoList:
                         type: array
                         items:
                           $ref: "#/components/schemas/VehicleDto"
