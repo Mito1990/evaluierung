@@ -49,7 +49,7 @@ public class VehicleService {
         Vehicle vehicle = vehicleRepository.findById(id)
                 .orElseThrow(() -> new VehicleNotFoundException(id));
         vehicleRepository.delete(vehicle);
-        log.info("Vehicle with ID {} successfully deleted.", id);
+        log.info("Vehicle {} is successfully deleted:", vehicle.toString());
     }
 
 }

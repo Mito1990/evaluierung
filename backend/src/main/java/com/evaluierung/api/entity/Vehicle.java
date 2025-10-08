@@ -29,4 +29,12 @@ public class Vehicle {
     private String kwAndPs;
     private Double hek;
     private String taxation;
+
+    @Override
+    public String toString() {
+        return "Vehicle [id=" + id + ", vehicleType=" + vehicleType + ", created=" + created + ", mileage=" + mileage
+                + ", gearbox=" + gearbox + ", owner=" + owner + ", kwAndPs=" + kwAndPs + ", hek=" + hek + ", taxation="
+                + taxation + "]";
+    }
+
 }
