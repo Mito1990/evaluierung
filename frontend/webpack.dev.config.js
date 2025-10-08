@@ -9,7 +9,7 @@ module.exports = {
     path: path.resolve(__dirname, "dist"),
     publicPath: "/evaluation"
   },
-    devServer: {
+  devServer: {
     static: {
         directory: path.join(__dirname, "public"),
     },
@@ -28,7 +28,7 @@ module.exports = {
         secure: false,
         },
     ],
-    },
+  },
   resolve: {
     extensions: [".tsx", ".ts", ".js"]
   },
