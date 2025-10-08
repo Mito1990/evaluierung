@@ -2,11 +2,13 @@ import React from "react";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { Button } from "primereact/button";
-import { VehicleDto } from "../api";
-import axios from "axios";
-import { api } from "../apiClient";
+import { VehicleDto } from "../../api";
+
+import "./VehicleTable.scss";
+
 interface VehicleTableProps {
   vehicles: VehicleDto[];
+  onDelete: (id: number) => void;
 }
 
 interface ColumnMeta {
@@ -16,6 +18,7 @@ interface ColumnMeta {
 
 export const VehicleTable: React.FC<VehicleTableProps> = ({
   vehicles,
+  onDelete,
 }) => {
   const columns: ColumnMeta[] = [
     { field: "vehicleType", header: "Vehicle Type" },
@@ -26,26 +29,22 @@ export const VehicleTable: React.FC<VehicleTableProps> = ({
     { field: "taxation", header: "Taxation" },
   ];
 
-  const deleteVehicle = async (vehicle: VehicleDto) => {
-    try {
-      api.deleteVehicle(vehicle.id);
-      console.log(`Fahrzeug ${vehicle.id} gelöscht`);
-    } catch (err) {
-      console.error("Fehler beim Löschen:", err);
-    }
-  };
-
   const actionBodyTemplate = (vehicle: VehicleDto) => (
     <Button
       label="Löschen"
       className="p-button-danger"
-      onClick={() => deleteVehicle(vehicle)}
+      onClick={() => onDelete(vehicle.id)}
     />
   );
 
   return (
     <div className="card">
-      <DataTable value={vehicles} tableStyle={{ minWidth: "50rem" }}>
+      <DataTable
+        value={vehicles ?? []}
+        className="vehicle-table-header"
+        tableStyle={{ minWidth: "50rem" }}
+        emptyMessage="Keine Fahrzeuge vorhanden"
+      >
         {columns.map((col) => (
           <Column key={col.field} field={col.field} header={col.header} />
         ))}

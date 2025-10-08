@@ -1,39 +1,57 @@
+import { Message } from "primereact/message";
+import { Toast } from "primereact/toast";
+import { useRef } from "react";
+import VehicleTable from "../components/VehicleTable/VehicleTable";
 import useSWR from "swr";
 import { VehicleDto } from "../api";
-import { api } from "../apiClient";
-import VehicleTable from "../components/VehicleTable";
+import { fetchVehicles, deleteVehicle } from "../apiClient/apiClient";
 
-const fetcher = async () => {
-  try {
-    const res = await api.getVehicles();
-    console.log(res.data)
-    const fetchedVehicles = (res.data as any)._embedded?.vehicleDtoList || [];
-    return fetchedVehicles;
-  } catch (err: any) {
-    console.error("Fehler beim Laden der Fahrzeuge:", err);
-    throw err;
-  }
+const fetcher = async (): Promise<VehicleDto[]> => {
+  const res = await fetchVehicles();
+  return res || [];
 };
 
+const Loading = () => <Message severity="info" text="Loading vehicles..." />;
+
 export const VehiclePage = () => {
+  const toast = useRef<Toast>(null);
+
   const {
     data: vehicles,
-    error,
     isLoading,
     mutate,
   } = useSWR<VehicleDto[]>("vehicles", fetcher);
-    console.log(vehicles);
-  if (isLoading) return <p>Lädt...</p>;
-  if (error)
-    return <p style={{ color: "red" }}>Fehler beim Laden der Fahrzeuge</p>;
-  if (!vehicles || vehicles.length === 0)
-    return <p>Keine Fahrzeuge gefunden</p>;
 
+  const handleDelete = async (id: number) => {
+    try {
+      mutate(
+        (currentVehicles) => currentVehicles?.filter((v) => v.id !== id) ?? [],
+        false
+      );
+
+      await deleteVehicle(id);
+
+      mutate();
+
+      toast.current?.show({
+        severity: "success",
+        summary: "Deleted",
+        detail: `Vehicle ${id} deleted`,
+      });
+    } catch (error) {
+      toast.current?.show({
+        severity: "error",
+        summary: "Error",
+        detail: `Could not delete vehicle: ${error}`,
+      });
+    }
+  };
+
+  if (isLoading) return <Loading />;
   return (
-    <div style={{ padding: "2rem", maxWidth: "50%" }}>
-      <VehicleTable vehicles={vehicles} />
-      <button onClick={() => mutate()}>Neu laden</button>
+    <div style={{ padding: "2rem", maxWidth: "70%" }}>
+      <Toast ref={toast} />
+      <VehicleTable vehicles={vehicles ?? []} onDelete={handleDelete} />
     </div>
   );
 };
-export default VehiclePage;
