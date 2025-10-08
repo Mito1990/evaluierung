@@ -1,5 +1,6 @@
 package com.evaluierung.api.controller;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -37,6 +38,11 @@ public class VehicleController {
                 .map(vehicleModelAssembler::toModel)
                 .collect(Collectors.toList());
         return ResponseEntity.ok(CollectionModel.of(vehicles));
+    }
+
+    @GetMapping("/init")
+    public void initializeDataForTesting() throws IOException {
+        vehicleService.loadVehiclesFromJson();
     }
 
     @GetMapping("/{id}")
