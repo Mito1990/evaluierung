@@ -6,7 +6,7 @@ module.exports = {
   entry: "./src/index.tsx",
   output: {
     filename: "bundleprod.js",
-    path: path.resolve(__dirname, "dist"),
+    path: path.resolve(__dirname, "dist/"),
     publicPath: "/evaluation/"
   },
   resolve: {
@@ -23,9 +23,4 @@ module.exports = {
       template: "./public/index.html"
     })
   ],
-  devServer: {
-    static: path.join(__dirname, "public"),
-    port: 8025,
-    historyApiFallback: true
-  }
 };
