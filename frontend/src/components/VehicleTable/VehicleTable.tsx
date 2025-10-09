@@ -18,11 +18,13 @@ interface ColumnMeta {
 
 export const VehicleTable = ({ vehicles, onDelete }: VehicleTableProps) => {
   const columns: ColumnMeta[] = [
-    { field: "vehicleType", header: "Vehicle Type" },
+    { field: "vehicleType", header: "Vehicle type" },
     { field: "created", header: "Created" },
     { field: "mileage", header: "Mileage" },
+    { field: "gearbox", header: "Gearbox" },
     { field: "owner", header: "Owner" },
     { field: "kwAndPs", header: "KwAndPs" },
+    { field: "hek", header: "Hek" },
     { field: "taxation", header: "Taxation" },
   ];
 
