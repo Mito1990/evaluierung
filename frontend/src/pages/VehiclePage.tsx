@@ -3,7 +3,7 @@ import { Toast } from "primereact/toast";
 import { useRef } from "react";
 import VehicleTable from "../components/VehicleTable/VehicleTable";
 import useSWR from "swr";
-import { getVehicles, removeVehicle } from "../service/vehicleService";
+import { getVehicles, removeVehicle } from "../service/vehicle-service";
 import { VehicleDto } from "../api/models/VehicleDto";
 import { ConfirmDialog, confirmDialog } from "primereact/confirmdialog";
 

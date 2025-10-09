@@ -2,7 +2,7 @@ import { VehicleDto } from "../api";
 import {
   fetchVehicles as apiFetchVehicles,
   deleteVehicle as apiDeleteVehicle,
-} from "../apiClient/apiClient";
+} from "../api-client/api-client";
 
 export const getVehicles = async (): Promise<VehicleDto[]> => {
   const vehicles = await apiFetchVehicles();

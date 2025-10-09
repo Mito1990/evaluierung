@@ -1,6 +1,6 @@
 import { VehiclesApi, Configuration, VehicleDto } from "../api";
 
-const config = new Configuration({ basePath: "/api/v1" });
+const config = new Configuration({ basePath: "https//api/v1" });
 export const api = new VehiclesApi(config);
 
 export const fetchVehicles = async (): Promise<VehicleDto[]> => {
